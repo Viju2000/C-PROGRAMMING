@@ -3,8 +3,8 @@
 #define MAX 50
 char s[MAX];
 int top=-1;
-void pi(char *,char *);
-int pr(int);
+void infixtopostfix(char *,char *);
+int priority(char);
 int main()
 {
 char infix[20],postfix[20];
@@ -12,12 +12,12 @@ s[++top]='#';
 clrscr();
 printf("enter the string:\n");
 scanf("%s",&infix);
-pi(infix,postfix);
+infixtopostfix(infix,postfix);
 printf("%s\n",postfix);
 getch();
 return 0;
 }
-void pi(char *infix,char *postfix)
+void infixtopostfix(char *infix,char *postfix)
 {
 char symbol;
 int i,j=0;
@@ -34,11 +34,11 @@ else if(symbol==')')
 		postfix[j++]=s[top--];
 	top--;
 }
-else if((pr(symbol))==10)
+else if((priority(symbol))==10)
 	postfix[j++]=symbol;
 else
 {
-while(pr(symbol)<=pr(s[top]))
+while(priority(symbol)<=priority(s[top]))
 	postfix[j++]=s[top--];
 s[++top]=symbol;
 }
@@ -47,7 +47,7 @@ while(s[top]!='#')
 	postfix[j++]=s[top--];
 postfix[j--]='\0';
 }
-int pr(a)
+int priority(char a)
 {
 switch(a)
 {
