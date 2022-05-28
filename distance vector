@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+int a[10][10],n;
+
+void floyd()
+{
+	int i,k,j;
+	for(k=1;k<=n;k++)
+		for(i=1;i<=n;i++)
+			for(j=1;j<=n;j++)
+				a[i][j]=mini(a[i][j],a[i][k]+a[k][j]);
+}
+int mini(int a,int b)
+{
+	return(a<b?a:b);
+}
+
+int main()
+{
+	int i,j;
+	clrscr();
+	printf("enter the number of routes:");
+	scanf("%d",&n);
+	printf("enter the distance vector matrix:\n");
+	for(i=1;i<=n;i++)
+	{
+		for(j=1;j<=n;j++)
+		{
+			scanf("%d",&a[i][j]);
+			if(a[i][j]==0)
+				a[i][j]=999;
+			if(i==j)
+				a[i][j]=0;
+		}
+	}
+	floyd();
+	for(i=1;i<=n;i++)
+	{
+		for(j=1;j<=n;j++)
+		{
+			printf("%d\t",a[i][j]);
+		}
+		printf("\n");
+	}
+	getch();
+	return 0;
+}
