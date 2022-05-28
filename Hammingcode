@@ -1,0 +1,43 @@
+#include<Stdio.h>
+#include<conio.h>
+void main()
+{
+	int data[10],datar[10],i,c,c1,c2,c3;
+	clrscr();
+	printf("enter the 4bytes of data 1 by 1:\n");
+	scanf("%d%d%d%d",&data[0],&data[1],&data[2],&data[4]);
+
+	data[6]=data[0]^data[2]^data[4];
+	data[5]=data[0]^data[1]^data[4];
+	data[3]=data[0]^data[1]^data[2];
+
+	printf("\n Encoded data is :\n");
+	for(i=0;i<7;printf("%d\t",data[i]),i++);
+
+	printf("\nenter the received data 1 by 1:\n");
+	for(i=0;i<7;scanf("%d",&datar[i]),i++);
+
+
+	c1=datar[6]^datar[4]^datar[2]^datar[0];
+	c2=datar[5]^datar[4]^datar[1]^datar[0];
+	c3=datar[3]^datar[2]^datar[1]^datar[0];
+
+	c=c3*4+c2*2+c1;
+	if(c==0)
+		printf("No error in received data:\n");
+	else
+	{
+		printf("error at position = %d",c);
+		printf("\n encoded data is:\n");
+		for(i=0;i<7;printf("%d\t",data[i]),i++);
+		printf("\n received data is:\n");
+		for(i=0;i<7;printf("%d\t",datar[i]),i++);
+		printf("\ncorrect message is :\n");
+		if(datar[7-c]==0)
+			datar[7-c]=1;
+		else
+			datar[7-c]=0;
+		for(i=0;i<7;printf("%d\t",datar[i]),i++);
+	}
+	getch();
+}
